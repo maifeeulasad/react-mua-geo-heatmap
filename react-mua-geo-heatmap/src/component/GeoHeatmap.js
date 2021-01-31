@@ -2,17 +2,12 @@ import React from 'react';
 
 class GeoHeatmap extends React.Component{
 
-    state={
-        canvas: null,
-        canvasContext: null,
-        data: [
-            [100,40,25],
-            [100,50,25],
-            [3,5,10],
-            [200,175,25],
-            [200,190,15],
-            [200,200,25]
-        ]
+    constructor(props) {
+        super(props);
+        this.state={
+            canvas: null,
+            canvasContext: null,
+        }
     }
 
     setCanvas = (elem) => {
@@ -27,8 +22,8 @@ class GeoHeatmap extends React.Component{
     }
 
     drawData = () => {
-        for (let i = 0; i < this.state.data.length; i++) {
-            let p = this.state.data[i];
+        for (let i = 0; i < this.props.data.length; i++) {
+            let p = this.props.data[i];
             this.state.canvasContext.beginPath();
             let color = 'rgba(0,0,0,255)';
             let gradient

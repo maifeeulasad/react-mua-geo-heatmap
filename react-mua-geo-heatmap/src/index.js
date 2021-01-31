@@ -5,7 +5,16 @@ import GeoHeatmap from "./component/GeoHeatmap";
 
 ReactDOM.render(
   <React.StrictMode>
-    <GeoHeatmap/>
+    <GeoHeatmap data={
+        [
+            [100,40,25],
+            [100,50,25],
+            [3,5,10],
+            [200,175,25],
+            [200,190,15],
+            [200,200,25]
+        ]
+    } />
   </React.StrictMode>,
   document.getElementById('root')
 );
