@@ -8,7 +8,7 @@ class GeoHeatmap extends React.Component{
             canvas: null,
             canvasContext: null,
             heatSequenceColors: [
-                [0,0,255],[0,255,0],[255,0,0]
+                [255,0,0],[0,255,0],[0,0,255]
             ]
         }
     }
@@ -79,8 +79,13 @@ class GeoHeatmap extends React.Component{
     colorData = (gradient) => {
         console.log(gradient)
         for(let i=0;i<gradient.data.length;i+=4){
+            let r = gradient.data[i];
+            let g = gradient.data[i+1];
+            let b = gradient.data[i+2];
+            let gray = r*0.3 + g*0.59 + b*0.11;
             let a = gradient.data[i+3];
-            let color = this.getColor(a);
+            let actualGray = (gray * (255-a)) / 255;
+            let color = this.getColor(actualGray);
             gradient.data[i]=color[0];
             gradient.data[i+1]=color[1];
             gradient.data[i+2]=color[2];
