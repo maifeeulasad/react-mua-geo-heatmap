@@ -1,12 +1,7 @@
 {
   "name": "react-mua-geo-heatmap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
-  "babel": {
-    "presets": [
-      "@babel/preset-react"
-    ]
-  },
   "license": "MIT",
   "author": {
     "name": "Maifee Ul Asad"
@@ -20,13 +15,12 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^10.1.0",
+    "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-react-transform": "^3.0.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.24.1",
     "react": "^17.0.1",
@@ -58,5 +52,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-loader": "^8.2.2"
   }
 }

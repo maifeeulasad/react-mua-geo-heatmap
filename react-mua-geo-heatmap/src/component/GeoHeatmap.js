@@ -82,6 +82,7 @@ class GeoHeatmap extends React.Component{
             let r = gradient.data[i];
             let g = gradient.data[i+1];
             let b = gradient.data[i+2];
+            //let gray = r*0.3 + g*0.59 + b*0.11;
             let gray = r*0.3 + g*0.59 + b*0.11;
             let a = gradient.data[i+3];
             let actualGray = (gray * (255-a)) / 255;
