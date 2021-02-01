@@ -26,26 +26,22 @@ class GeoHeatmap extends React.Component{
 
     getColor = (input) => {
         let indexFloat = (this.state.heatSequenceColors.length*input)/255;
-        let index=parseInt(indexFloat.toString())
-        let floating = indexFloat>=index ? indexFloat-index : index-indexFloat;
-        if(index<0){
-            index = 0;
-        }else if(index>=this.state.heatSequenceColors.length){
-            index = this.state.heatSequenceColors.length-1;
+        let indexFloor = Math.floor(indexFloat);
+        let indexCeil = Math.ceil(indexFloat);
+        if(indexFloor<0){
+            indexFloor = 0;
+        }else if(indexFloor>=this.state.heatSequenceColors.length){
+            indexFloor = this.state.heatSequenceColors.length-1;
         }
-        if(floating<0){
-            floating=0;
-        }else if(floating>1){
-            floating=1;
+        if(indexCeil<0){
+            indexCeil = 0;
+        }else if(indexCeil>=this.state.heatSequenceColors.length){
+            indexCeil = this.state.heatSequenceColors.length-1;
         }
-        let indexNext = index+1;
-        if(indexNext>=this.state.heatSequenceColors.length){
-            indexNext = this.state.heatSequenceColors.length-1;
-        }
-        let colorIndex = this.state.heatSequenceColors[index];
-        let colorIndexNext = this.state.heatSequenceColors[indexNext];
-        return colorIndex.map((c,i)=>{
-            return (c*floating+colorIndexNext[i]*(1-floating))/2;
+        let ratio = indexFloat - indexFloor;
+        return this.state.heatSequenceColors[indexFloor].map((c,i)=>{
+            let weightedAvg = (c*ratio+this.state.heatSequenceColors[indexCeil][i]*(1-ratio))/2;
+            return parseInt(Math.round(weightedAvg).toString());
         })
     }
 
@@ -75,9 +71,9 @@ class GeoHeatmap extends React.Component{
         let gradient = this
             .state
             .canvasContext
-            .getImageData(0, 0, this.props.width | window.innerWidth, this.props.height | window.innerHeight)
+            .getImageData(0, 0, this.props.width, this.props.height)
         gradient = this.colorData(gradient)
-        this.state.canvasContext.putImageData(gradient, 0, 0,0,0,this.props.width | window.innerWidth, this.props.height | window.innerHeight);
+        this.state.canvasContext.putImageData(gradient, 0, 0,0,0,this.props.width, this.props.height);
     }
 
     colorData = (gradient) => {
@@ -87,27 +83,13 @@ class GeoHeatmap extends React.Component{
             let g = gradient.data[i+1];
             let b = gradient.data[i+2];
             let a = gradient.data[i+3];
-            let val = r*r+g*g+b*b+a*a;
             gradient.data[i]=a;
             let color = this.getColor(a);
-            //console.log(color)
             gradient.data[i]=color[0];
             gradient.data[i+1]=color[1];
             gradient.data[i+2]=color[2];
-            /*
-            if(a>127){
-                gradient.data[i]=255;
-            }else{
-                gradient.data[i] = 0;
-            }
-             */
-            //gradient.data[i+1]=0;
-            //gradient.data[i+2]=0;
-            //gradient.data[i] = val/4/255/255;
-            //gradient.data[i+1] = 0;
-            //gradient.data[i+2] = 0;
-            //gradient.data[i+3] = 255;
         }
+        console.log(gradient)
         return gradient;
     }
 
@@ -116,8 +98,8 @@ class GeoHeatmap extends React.Component{
             <canvas
                 className={"background"}
                 ref={this.setCanvas}
-                width={this.props.width | window.innerWidth}
-                height={this.props.height | window.innerHeight}/>
+                width={this.props.width}
+                height={this.props.height}/>
         )
     }
 

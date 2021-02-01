@@ -5,7 +5,10 @@ import GeoHeatmap from "./component/GeoHeatmap";
 
 ReactDOM.render(
   <React.StrictMode>
-    <GeoHeatmap data={
+    <GeoHeatmap
+        height={window.innerHeight}
+        width={window.innerWidth}
+        data={
         [
             [100,40,25],
             [100,50,25],
