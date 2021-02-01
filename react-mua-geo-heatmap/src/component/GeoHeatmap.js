@@ -27,12 +27,26 @@ class GeoHeatmap extends React.Component{
     getColor = (input) => {
         let indexFloat = (this.state.heatSequenceColors.length*input)/255;
         let index=parseInt(indexFloat.toString())
+        let floating = indexFloat>=index ? indexFloat-index : index-indexFloat;
         if(index<0){
             index = 0;
         }else if(index>=this.state.heatSequenceColors.length){
             index = this.state.heatSequenceColors.length-1;
         }
-        return this.state.heatSequenceColors[index];
+        if(floating<0){
+            floating=0;
+        }else if(floating>1){
+            floating=1;
+        }
+        let indexNext = index+1;
+        if(indexNext>=this.state.heatSequenceColors.length){
+            indexNext = this.state.heatSequenceColors.length-1;
+        }
+        let colorIndex = this.state.heatSequenceColors[index];
+        let colorIndexNext = this.state.heatSequenceColors[indexNext];
+        return colorIndex.map((c,i)=>{
+            return (c*floating+colorIndexNext[i]*(1-floating))/2;
+        })
     }
 
     drawData = () => {
