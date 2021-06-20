@@ -1,6 +1,6 @@
 {
   "name": "react-mua-geo-heatmap",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": false,
   "license": "MIT",
   "author": {
@@ -53,8 +53,8 @@
       "last 1 safari version"
     ]
   },
-  "main" : "dist/GeoHeatmap.js",
-  "files" : [
+  "main": "dist/GeoHeatmap.js",
+  "files": [
     "dist"
   ],
   "devDependencies": {
