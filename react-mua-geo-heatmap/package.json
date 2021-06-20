@@ -53,8 +53,8 @@
       "last 1 safari version"
     ]
   },
-  "main" : "dist/GeoHeatmap.js",
-  "files" : [
+  "main": "dist/GeoHeatmap.js",
+  "files": [
     "dist"
   ],
   "devDependencies": {
